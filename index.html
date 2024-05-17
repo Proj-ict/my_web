@@ -3,9 +3,215 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Space Shooter Game</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: black;
+        }
+        canvas {
+            border: 1px solid white;
+        }
+        #restartButton {
+            display: none;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 10px 20px;
+            font-size: 20px;
+            color: white;
+            background-color: blue;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
-    <h1>Hello world</h1>
+    <canvas id="gameCanvas"></canvas>
+    <button id="restartButton" onclick="restartGame()">Restart</button>
+    <script>
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        const restartButton = document.getElementById('restartButton');
+        const playerWidth = 30;
+        const playerHeight = 30;
+        const playerSpeed = 5;
+        const bulletSpeed = 8;
+        const enemySpeed = 3;
+        const enemySpawnRate = 60; // spawn enemy every 60 frames
+        let bullets = [];
+        let enemies = [];
+        let score = 0;
+        let frame = 0;
+        let touchStartX = null;
+        let gameRunning = true;
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        // Player object
+        let player = {
+            x: canvas.width / 2 - playerWidth / 2,
+            y: canvas.height - playerHeight - 10,
+            width: playerWidth,
+            height: playerHeight,
+            color: 'blue'
+        };
+
+        // Event listener for touch controls
+        canvas.addEventListener('touchstart', (event) => {
+            touchStartX = event.touches[0].clientX;
+        });
+
+        canvas.addEventListener('touchmove', (event) => {
+            const touchX = event.touches[0].clientX;
+            const deltaX = touchX - touchStartX;
+            if (deltaX > 0 && player.x < canvas.width - playerWidth) {
+                player.x += playerSpeed;
+            } else if (deltaX < 0 && player.x > 0) {
+                player.x -= playerSpeed;
+            }
+            touchStartX = touchX;
+            event.preventDefault(); // Prevent scrolling
+        });
+
+        // Function to fire bullets
+        function fireBullet() {
+            bullets.push({
+                x: player.x + playerWidth / 2 - 1,
+                y: player.y,
+                width: 2,
+                height: 10,
+                color: 'white'
+            });
+        }
+
+        // Event listener for firing bullets
+        canvas.addEventListener('touchstart', fireBullet);
+
+        // Function to create enemies
+        function spawnEnemy() {
+            const enemyWidth = 30;
+            const enemyHeight = 30;
+            const x = Math.random() * (canvas.width - enemyWidth);
+            enemies.push({
+                x: x,
+                y: -enemyHeight,
+                width: enemyWidth,
+                height: enemyHeight,
+                color: 'red'
+            });
+        }
+
+        // Function to display score
+        function displayScore() {
+            ctx.fillStyle = 'white';
+            ctx.font = '20px Arial';
+            ctx.fillText(`Score: ${score}`, 10, 30);
+        }
+
+        // Function to update game state
+        function update() {
+            if (!gameRunning) return;
+
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+            // Draw player
+            ctx.fillStyle = player.color;
+            ctx.fillRect(player.x, player.y, player.width, player.height);
+
+            // Draw bullets
+            bullets.forEach((bullet) => {
+                ctx.fillStyle = bullet.color;
+                ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
+                bullet.y -= bulletSpeed;
+
+                // Remove bullet if out of canvas
+                if (bullet.y < 0) {
+                    bullets.splice(bullets.indexOf(bullet), 1);
+                }
+            });
+
+            // Draw enemies
+            enemies.forEach((enemy) => {
+                ctx.fillStyle = enemy.color;
+                ctx.fillRect(enemy.x, enemy.y, enemy.width, enemy.height);
+                enemy.y += enemySpeed;
+
+                // Check for collision with player
+                if (enemy.y + enemy.height > player.y && enemy.x + enemy.width > player.x && enemy.x < player.x + player.width) {
+                    // Game over
+                    gameOver();
+                }
+
+                // Check for collision with bullets
+                bullets.forEach((bullet) => {
+                    if (bullet.x < enemy.x + enemy.width &&
+                        bullet.x + bullet.width > enemy.x &&
+                        bullet.y < enemy.y + enemy.height &&
+                        bullet.y + bullet.height > enemy.y) {
+                        // Remove enemy and bullet on collision
+                        enemies.splice(enemies.indexOf(enemy), 1);
+                        bullets.splice(bullets.indexOf(bullet), 1);
+                        score++;
+                    }
+                });
+
+                // Remove enemy if out of canvas
+                if (enemy.y > canvas.height) {
+                    enemies.splice(enemies.indexOf(enemy), 1);
+                }
+            });
+
+            // Display score
+            displayScore();
+
+            // Spawn enemies
+            if (frame % enemySpawnRate === 0) {
+                spawnEnemy();
+            }
+
+            // Update frame
+            frame++;
+
+            // Request animation frame
+            requestAnimationFrame(update);
+        }
+
+        // Function to handle game over
+        function gameOver() {
+            gameRunning = false;
+            restartButton.style.display = 'block';
+        }
+
+        // Function to restart the game
+        function restartGame() {
+            score = 0;
+            frame = 0;
+            bullets = [];
+            enemies = [];
+            player = {
+                x: canvas.width / 2 - playerWidth / 2,
+                y: canvas.height - playerHeight - 10,
+                width: playerWidth,
+                height: playerHeight,
+                color: 'blue'
+            };
+            gameRunning = true;
+            restartButton.style.display = 'none';
+            update();
+        }
+
+        // Start game loop
+        update();
+    </script>
 </body>
 </html>
