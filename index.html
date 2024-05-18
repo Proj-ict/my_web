@@ -3,320 +3,109 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Space Shooter Game</title>
+    <title>Mobile Site with Glowing Header</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header class="glowing-header">
+        Our Digital Magazine
+    </header>
+    <main>
+        <div class="image-row">
+            <div class="image-container">
+                <img src="history.jpg" alt="The History of Udayan" class="image-button" onclick="location.href='history.html'">
+                <p>The History of Udayan</p>
+            </div>
+            <div class="image-container">
+                <img src="jokes.jpg" alt="The Jokes World" class="image-button" onclick="location.href='jokes.html'">
+                <p>The Jokes World</p>
+            </div>
+        </div>
+        <div class="image-row">
+            <div class="image-container">
+                <img src="space_shooter.jpg" alt="The Space Shooter" class="image-button" onclick="location.href='game.html'">
+                <p>The Space Shooter</p>
+            </div>
+            <div class="image-container">
+                <img src="real_life_iron_man.jpg" alt="The Story of Real Life Iron Man" class="image-button" onclick="location.href='elon.html'">
+                <p>The Story of Real Life Iron Man</p>
+            </div>
+        </div>
+    </main>
     <style>
-        body, html {
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            width: 100%;
-            height: 100%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: black;
-        }
-        canvas {
-            border: 1px solid white;
-        }
-        #restartButton {
-            display: none;
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            padding: 10px 20px;
-            font-size: 20px;
-            color: white;
-            background-color: blue;
-            border: none;
-            cursor: pointer;
-        }
-        body {
+      /* General Styles */
+body {
     margin: 0;
-    padding: 0;
-    overflow: hidden;
-    width: 100%;
-    height: 100%;
+    font-family: Arial, sans-serif;
+    background-color: #f0f0f0;
+    color: #333;
+}
+
+/* Header Styles */
+.glowing-header {
+    text-align: center;
+    padding: 20px;
+    font-size: 24px;
+    background-color: #282c34;
+    color: #ffffff;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7);
+}
+
+/* Main Content Styles */
+main {
+    padding: 20px;
+    text-align: center;
+}
+
+.image-row {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    background-color: black;
+    justify-content: space-around;
+    margin-top: 100px;
 }
 
-.star {
-    position: absolute;
-    width: 1px; /* Adjust the size of the star */
-    height: 1px; /* Adjust the size of the star */
-    background-color: white;
-    opacity: 0.5; /* Initial opacity */
-    animation: twinkle 1.5s infinite; /* Adjust the speed of the twinkling */
+.image-container {
+    width: 45%;
+    text-align: center;
 }
 
-@keyframes twinkle {
-    0% { opacity: 0.5; }
-    50% { opacity: 0.8; }
-    100% { opacity: 0.5; }
+.image-button {
+    width: 100%;
+    height: auto;
+    cursor: pointer;
+    transition: transform 0.3s ease;
 }
 
-.exit-arrow {
-    position: fixed;
-    top: 50px;
-    left: 10px;
-    font-size: 18px;
-    color: #ffffff; /* White color for better visibility */
-    text-decoration: none;
-    background-color: #007bff; /* Blue color for the background */
-    padding: 8px 12px; /* Adjust padding for better touch responsiveness */
-    border-radius: 50%; /* Make it circular */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a subtle shadow */
+.image-button:hover {
+    transform: scale(1.05);
+}
+
+p {
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+/* Responsive Design */
+@media (max-width: 600px) {
+    .glowing-header {
+        font-size: 20px;
+        padding: 15px;
+    }
+
+    .image-row {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .image-container {
+        width: 80%;
+        margin-bottom: 30px;
+    }
 }
 
     </style>
-</head>
-<body>
-    <a href="index.html" class="exit-arrow">&#9664; Exit</a>
-    <canvas id="gameCanvas"></canvas>
-    <button id="restartButton" onclick="restartGame()">Restart</button>
-    <script>
-        const canvas = document.getElementById('gameCanvas');
-        const ctx = canvas.getContext('2d');
-        const restartButton = document.getElementById('restartButton');
-        const playerWidth = 15;
-        const playerHeight = 25;
-        const playerSpeed = 5;
-        const bulletSpeed = 8;
-        const enemySpeed = 3;
-        const enemySpawnRate = 60; // spawn enemy every 60 frames
-        let bullets = [];
-        let enemies = [];
-        let score = 0;
-        let frame = 0;
-        let touchStartX = null;
-        let gameRunning = true;
-
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        // Player object
-        let player = {
-            x: canvas.width / 2 - playerWidth / 2,
-            y: canvas.height - playerHeight - 10,
-            width: playerWidth,
-            height: playerHeight
-        };
-
-        // Event listeners for touch controls
-        canvas.addEventListener('touchstart', (event) => {
-            touchStartX = event.touches[0].clientX;
-        });
-
-        canvas.addEventListener('touchmove', (event) => {
-            const touchX = event.touches[0].clientX;
-            const deltaX = touchX - touchStartX;
-            if (deltaX > 0 && player.x < canvas.width - playerWidth) {
-                player.x += playerSpeed;
-            } else if (deltaX < 0 && player.x > 0) {
-                player.x -= playerSpeed;
-            }
-            touchStartX = touchX;
-            event.preventDefault(); // Prevent scrolling
-        });
-
-        // Function to draw spaceship
-        function drawSpaceship(x, y) {
-            // Draw spaceship body
-            ctx.fillStyle = 'white';
-            ctx.fillRect(x, y, 15, 25);
-            // Draw window
-            ctx.fillStyle = '#099';
-            ctx.beginPath();
-            ctx.arc(x + 7.5, y + 6, 3.5, 0, Math.PI * 2);
-            ctx.fill();
-            // Draw fins
-            ctx.fillStyle = '#999';
-            ctx.beginPath();
-            ctx.moveTo(x, y + 25);
-            ctx.lineTo(x - 5, y + 35);
-            ctx.lineTo(x + 5, y + 25);
-            ctx.fill();
-            ctx.beginPath();
-            ctx.moveTo(x + 15, y + 25);
-            ctx.lineTo(x + 20, y + 35);
-            ctx.lineTo(x + 10, y + 25);
-            ctx.fill();
-            // Draw flame
-            ctx.fillStyle = 'orange';
-            ctx.beginPath();
-            ctx.arc(x + 7.5, y + 30, 5, 0, Math.PI * 2);
-            ctx.fill();
-        }
-
-        // Function to draw enemy flying saucers
-        function drawEnemy(x, y) {
-            // Draw flying saucer body
-            ctx.fillStyle = 'white';
-            ctx.beginPath();
-            ctx.arc(x + 15, y + 15, 15, 0, Math.PI * 2);
-            ctx.fill();
-
-            // Draw rotating disc
-            ctx.fillStyle = 'lightgreen';
-            ctx.save(); // Save the current state of the canvas
-            ctx.translate(x + 15, y + 5); // Translate to the center of the disc
-            ctx.rotate(frame / 30); // Rotate the disc based on the frame count for animation
-            ctx.beginPath();
-            ctx.fillRect(-12, -2.5, 24, 5); // Draw a rectangle for the disc
-            ctx.restore(); // Restore the previously saved state of the canvas
-        }
-
-        // Function to fire bullets
-        function fireBullet() {
-            bullets.push({
-                x: player.x + playerWidth / 2 - 1,
-                y: player.y,
-                width: 2,
-                height: 10,
-                color: 'white'
-            });
-        }
-
-        // Function to create enemies
-        function spawnEnemy() {
-            const enemyWidth = 30;
-            const enemyHeight = 30;
-            const x = Math.random() * (canvas.width - enemyWidth);
-            enemies.push({
-                x: x,
-                y: -enemyHeight,
-                width: enemyWidth,
-                height: enemyHeight,
-                color: 'red'
-            });
-        }
-
-        // Function to display score
-        function displayScore() {
-            ctx.fillStyle = 'white';
-            ctx.font = '20px Arial';
-            ctx.fillText(`Score: ${score}`, 10, 30);
-        }
-
-        // Function to update game state
-        function update() {
-            if (!gameRunning) return;
-
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-
-            // Draw player
-            drawSpaceship(player.x, player.y);
-
-            // Draw bullets
-            bullets.forEach((bullet) => {
-                ctx.fillStyle = bullet.color;
-                ctx.fillRect(bullet.x, bullet.y, bullet.width, bullet.height);
-                bullet.y -= bulletSpeed;
-
-                // Remove bullet if out of canvas
-                if (bullet.y < 0) {
-                    bullets.splice(bullets.indexOf(bullet), 1);
-                }
-            });
-
-            // Draw enemies
-            enemies.forEach((enemy) => {
-                drawEnemy(enemy.x, enemy.y);
-                enemy.y += enemySpeed;
-
-                // Check for collision with player
-                if (enemy.y + enemy.height > player.y && enemy.x + enemy.width > player.x && enemy.x < player.x + player.width) {
-                    // Game over
-                    gameOver();
-                }
-
-                // Check for collision with bullets
-                bullets.forEach((bullet) => {
-                    if (bullet.x < enemy.x + enemy.width &&
-                        bullet.x + bullet.width > enemy.x &&
-                        bullet.y < enemy.y + enemy.height &&
-                        bullet.y + bullet.height > enemy.y) {
-                        // Remove enemy and bullet on collision
-                        enemies.splice(enemies.indexOf(enemy), 1);
-                        bullets.splice(bullets.indexOf(bullet), 1);
-                        score++;
-                    }
-                });
-
-                // Remove enemy if out of canvas
-                if (enemy.y > canvas.height) {
-                   
-                    enemies.splice(enemies.indexOf(enemy), 1);
-                }
-            });
-
-            // Display score
-            displayScore();
-
-            // Spawn enemies
-            if (frame % enemySpawnRate === 0) {
-                spawnEnemy();
-            }
-
-            // Update frame
-            frame++;
-
-            // Request animation frame
-            requestAnimationFrame(update);
-        }
-
-        // Function to handle game over
-        function gameOver() {
-            gameRunning = false;
-            restartButton.style.display = 'block';
-        }
-
-        // Function to restart the game
-        function restartGame() {
-            score = 0;
-            frame = 0;
-            bullets = [];
-            enemies = [];
-            player = {
-                x: canvas.width / 2 - playerWidth / 2,
-                y: canvas.height - playerHeight - 10,
-                width: playerWidth,
-                height: playerHeight
-            };
-            gameRunning = true;
-            restartButton.style.display = 'none';
-            update();
-        }
-
-        // Start game loop
-        update();
-
-        // Function to fire bullets at regular intervals
-        function startFiring() {
-            firingInterval = setInterval(fireBullet, 250); // Fire bullet every 1000 milliseconds (1 second)
-        }
-
-        // Start firing bullets
-        startFiring();
-
-        // Stop firing bullets
-        function stopFiring() {
-            clearInterval(firingInterval);
-        }
-                const numStars = 100; // Adjust the number of stars
-        const body = document.querySelector('body');
-
-        for (let i = 0; i < numStars; i++) {
-            const star = document.createElement('div');
-            star.classList.add('star');
-            star.style.left = `${Math.random() * 100}%`;
-            star.style.top = `${Math.random() * 100}%`;
-            body.appendChild(star);
-        }
-    </script>
 </body>
 </html>
