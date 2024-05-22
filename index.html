@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mobile Site with Glowing Header</title>
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -14,98 +15,185 @@
         <div class="image-row">
             <div class="image-container">
                 <img src="history.jpg" alt="The History of Udayan" class="image-button" onclick="location.href='history.html'">
-                <p>The History of Udayan</p>
+                <div class="text-box blue-box">
+                    <p>The History of Udayan</p>
+                </div>
             </div>
             <div class="image-container">
-                <img src="jokes.jpg" alt="The Jokes World" class="image-button" onclick="location.href='jokes.html'">
-                <p>The Jokes World</p>
+                <img src="jokes.png" alt="The Jokes World" class="image-button" onclick="location.href='jokes.html'">
+                <div class="text-box green-box">
+                    <p>The Jokes World</p>
+                </div>
             </div>
         </div>
         <div class="image-row">
             <div class="image-container">
-                <img src="space_shooter.jpg" alt="The Space Shooter" class="image-button" onclick="location.href='game.html'">
-                <p>The Space Shooter</p>
+                <img src="space_shooter.png" alt="The Space Shooter" class="image-button" onclick="location.href='game.html'">
+                <div class="text-box yellow-box">
+                    <p>The Space Shooter</p>
+                </div>
             </div>
             <div class="image-container">
-                <img src="real_life_iron_man.jpg" alt="The Story of Real Life Iron Man" class="image-button" onclick="location.href='elon.html'">
-                <p>The Story of Real Life Iron Man</p>
+                <img src="real_life_iron_man.jpeg" alt="The Story of Real Life Iron Man" class="image-button" onclick="location.href='elon.html'">
+                <div class="text-box red-box">
+                    <p>The Story of Real Life Iron Man</p>
+                </div>
             </div>
         </div>
     </main>
     <style>
-      /* General Styles */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background-color: #f0f0f0;
-    color: #333;
-}
+        /* General Styles */
+        body, html {
+            margin: 0;
+            padding: 0;
+            font-family: 'Raleway', sans-serif;
+            background-color: #000;
+            color: #fff;
+            height: 100%;
+            overflow: hidden; /* Prevent scrolling */
+        }
 
-/* Header Styles */
-.glowing-header {
-    text-align: center;
-    padding: 20px;
-    font-size: 24px;
-    background-color: #282c34;
-    color: #ffffff;
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-    text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7);
-}
+        /* Header Styles */
+        .glowing-header {
+            text-align: center;
+            padding: 10px;
+            font-size: 20px;
+            background-color: #282c34;
+            color: #ffffff;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7);
+            animation: glow 1.5s infinite alternate;
+        }
 
-/* Main Content Styles */
-main {
-    padding: 20px;
-    text-align: center;
-}
+        @keyframes glow {
+            from {
+                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.3);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.4);
+            }
+        }
 
-.image-row {
-    display: flex;
-    justify-content: space-around;
-    margin-top: 100px;
-}
+        /* Main Content Styles */
+        main {
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            align-items: center;
+            height: calc(100vh - 50px); /* Adjust based on header height */
+            padding: 10px;
+            box-sizing: border-box;
+        }
 
-.image-container {
-    width: 45%;
-    text-align: center;
-}
+        .image-row {
+            display: flex;
+            justify-content: space-around;
+            width: 100%;
+            height: 45%; /* Adjust height to ensure two rows fit */
+        }
 
-.image-button {
-    width: 100%;
-    height: auto;
-    cursor: pointer;
-    transition: transform 0.3s ease;
-}
+        .image-container {
+            width: 48%;
+            height: 100%;
+            text-align: center;
+            position: relative;
+        }
 
-.image-button:hover {
-    transform: scale(1.05);
-}
+        .image-button {
+            width: 100%;
+            height: 80%;
+            object-fit: cover;
+            cursor: pointer;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+        }
 
-p {
-    font-size: 16px;
-    margin-top: 10px;
-}
+        .image-button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
+        }
 
-/* Responsive Design */
-@media (max-width: 600px) {
-    .glowing-header {
-        font-size: 20px;
-        padding: 15px;
-    }
+        .text-box {
+            width: 100%;
+            height: 60px; /* Increased height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            position: absolute;
+            bottom: 0;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+        }
 
-    .image-row {
-        flex-direction: column;
-        align-items: center;
-    }
+        .blue-box {
+            background-color: #007BFF;
+            animation: box-glow-blue 1.5s infinite alternate;
+        }
 
-    .image-container {
-        width: 80%;
-        margin-bottom: 30px;
-    }
-}
+        .green-box {
+            background-color: #28A745;
+            animation: box-glow-green 1.5s infinite alternate;
+        }
 
+        .yellow-box {
+            background-color: #FFC107;
+            animation: box-glow-yellow 1.5s infinite alternate;
+        }
+
+        .red-box {
+            background-color: #DC3545;
+            animation: box-glow-red 1.5s infinite alternate;
+        }
+
+        @keyframes box-glow-blue {
+            from {
+                box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(0, 123, 255, 0.8);
+            }
+        }
+
+        @keyframes box-glow-green {
+            from {
+                box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(40, 167, 69, 0.8);
+            }
+        }
+
+        @keyframes box-glow-yellow {
+            from {
+                box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(255, 193, 7, 0.8);
+            }
+        }
+
+        @keyframes box-glow-red {
+            from {
+                box-shadow: 0 0 10px rgba(220, 53, 69, 0.5);
+            }
+            to {
+                box-shadow: 0 0 20px rgba(220, 53, 69, 0.8);
+            }
+        }
+
+        /* Responsive Design */
+        @media (max-width: 600px) {
+            .glowing-header {
+                font-size: 18px;
+                padding: 8px;
+            }
+
+            p {
+                font-size: 12px;
+            }
+        }
     </style>
 </body>
 </html>
