@@ -3,11 +3,137 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile Site with Glowing Header</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Joke Generator</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            background-color: #f0f0f0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #ffffff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #0f0;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #0f0;
+        }
+
+        span {
+            margin-top: 20px;
+            font-size: 18px;
+            color: #555;
+        }
+    </style>
 </head>
 <body>
-    <div><h2>🎈🎉🎂 Jokes world 😂🤣🎈</h2></div>
-    <div><p>This page is not updated yet !</p></div>
+    <div class="container">
+        <h1>😂 joke's to make your day 😂</h1>
+        <button id="jokeButton">Get a Joke</button>
+        <div>
+        <span style="font-weight: bold;"id="jokeDisplay"></span>
+        </div>
+    </div>
+    <script>
+        document.getElementById('jokeButton').addEventListener('click', getJoke);
+
+        const jokes = [
+            "Why don't scientists trust atoms? Because they make up everything!",
+            "What do you get if you cross a cat with a dark horse? Kitty Perry.",
+            "Why did the scarecrow win an award? Because he was outstanding in his field!",
+            "Why don't skeletons fight each other? They don't have the guts.",
+            "What do you call fake spaghetti? An impasta!",
+            "How do you organize a space party? You planet.",
+            "Why don't programmers like nature? It has too many bugs.",
+            "Why did the computer go to the doctor? It had a virus!",
+            "Why do cows wear bells? Because their horns don't work.",
+            "What do you call cheese that isn't yours? Nacho cheese.",
+            "Why can't you hear a pterodactyl in the bathroom? Because it has a silent pee.",
+            "What do you call a belt made out of watches? A waist of time.",
+            "Why did the bicycle fall over? It was two-tired.",
+            "What did one wall say to the other wall? I'll meet you at the corner.",
+            "Why don't some couples go to the gym? Because some relationships don't work out.",
+            "What do you call a can opener that doesn't work? A can't opener.",
+            "Why did the golfer bring two pairs of pants? In case he got a hole in one.",
+            "What do you call a fish with no eyes? Fsh.",
+            "Why don't elephants use computers? They're afraid of the mouse.",
+            "Why do chicken coops only have two doors? Because if they had four, they’d be chicken sedans!",
+            "Why don't some fish play piano? Because you can't tuna fish.",
+            "Why was the math book sad? Because it had too many problems.",
+            "Why don't oysters share their pearls? Because they're shellfish.",
+            "Why did the tomato turn red? Because it saw the salad dressing.",
+            "How does a penguin build its house? Igloos it together.",
+            "Why don't seagulls fly over the bay? Because then they'd be bagels.",
+            "Why was the big cat disqualified from the race? Because it was a cheetah.",
+            "What kind of music do mummies listen to? Wrap music.",
+            "Why are ghosts bad at lying? Because they are too transparent.",
+            "Why did the coffee file a police report? It got mugged.",
+            "Why did the stadium get hot after the game? All the fans left.",
+            "What do you call a boomerang that doesn't come back? A stick.",
+            "Why was the math book sad? It had too many problems.",
+            "Why don't some couples go to the gym? Because some relationships don't work out.",
+            "What do you call an alligator in a vest? An investigator.",
+            "Why did the banana go to the doctor? Because it wasn't peeling well.",
+            "What did the janitor say when he jumped out of the closet? Supplies!",
+            "Why did the golfer bring extra pants? In case he got a hole in one.",
+            "Why can't you give Elsa a balloon? Because she will let it go.",
+            "How do you make holy water? You boil the hell out of it.",
+            "Why did the scarecrow become a successful neurosurgeon? He was outstanding in his field.",
+            "What did the grape say when it got stepped on? Nothing, it just let out a little wine.",
+            "Why don't some fish play basketball? Because they're afraid of the net.",
+            "Why did the gym close down? It just didn't work out.",
+            "Why did the scarecrow win an award? He was outstanding in his field.",
+            "What did the ocean say to the beach? Nothing, it just waved.",
+            "Why don't some couples go to the gym? Because some relationships don't work out.",
+            "Why did the barber win the race? He took a shortcut.",
+            "What do you call a dinosaur with an extensive vocabulary? A thesaurus.",
+            "Why don't some people tell secrets in a cornfield? Too many ears.",
+            "Why can't your nose be 12 inches long? Because then it would be a foot.",
+            "Why did the scarecrow become a brain surgeon? Because he was outstanding in his field.",
+            "Why did the photo go to jail? It was framed."
+        ];
+
+        let shuffledJokes = shuffleArray(jokes.slice());
+        let jokeIndex = 0;
+
+        function getJoke() {
+            if (jokeIndex >= shuffledJokes.length) {
+                shuffledJokes = shuffleArray(jokes.slice());
+                jokeIndex = 0;
+            }
+            document.getElementById('jokeDisplay').innerText = shuffledJokes[jokeIndex];
+            jokeIndex++;
+        }
+
+        function shuffleArray(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+    </script>
 </body>
 </html>
